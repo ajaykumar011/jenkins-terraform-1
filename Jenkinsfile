@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters {
-        string(name: 'TF_WORKSPACE', defaultValue: 'dev', description: 'Workspace file to use for deployment')
+        string(name: 'TF_WORKSPACE', defaultValue: 'dev', description: 'Workspace (dev/prod) file to use for deployment')
         //string(name: 'version', defaultValue: '0.13.3', description: 'Version variable to pass to Terraform')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
@@ -10,7 +10,7 @@ pipeline {
     environment {
         AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
         AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-        TF_IN_AUTOMATION      = '1'
+        TF_IN_AUTOMATION      = '1'  // don't know why this is used in script
     }
 
     stages {
