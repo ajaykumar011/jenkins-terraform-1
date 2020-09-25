@@ -46,7 +46,7 @@ pipeline {
                   sh 'terraform init -input=false'
                   //sh 'terraform workspace select ${TF_WORKSPACE}'
                   sh 'terraform workspace new $TF_WORKSPACE || true'
-                  sh "terraform plan -input=false -out tfplan --version=${params.version} --var-file=${params.TF_WORKSPACE}.tfvars"
+                  sh "terraform plan -input=false -out tfplan -var 'version=${params.version}' --var-file=${params.TF_WORKSPACE}.tfvars"
                   sh 'terraform show -no-color tfplan > tfplan.txt'
                 //}
             }
