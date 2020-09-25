@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(name: 'TF_WORKSPACE', defaultValue: 'dev', description: 'Workspace file to use for deployment')
-        string(name: 'version', defaultValue: '0.13.3', description: 'Version variable to pass to Terraform')
+        string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
     
