@@ -3,7 +3,7 @@ pipeline {
 
     parameters {
         string(name: 'TF_WORKSPACE', defaultValue: 'dev', description: 'Workspace file to use for deployment')
-        //string(name: 'version', defaultValue: '', description: 'Version variable to pass to Terraform')
+        string(name: 'version', defaultValue: '0.13.3', description: 'Version variable to pass to Terraform')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
     }
     
@@ -46,7 +46,7 @@ pipeline {
                   sh 'terraform init -input=false'
                   //sh 'terraform workspace select ${TF_WORKSPACE}'
                   sh 'terraform workspace new $TF_WORKSPACE || true'
-                  sh "terraform plan -input=false -out tfplan --var-file=${params.TF_WORKSPACE}.tfvars"
+                  sh "terraform plan -input=false -out tfplan --version=${params.version} --var-file=${params.TF_WORKSPACE}.tfvars"
                   sh 'terraform show -no-color tfplan > tfplan.txt'
                 //}
             }
