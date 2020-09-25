@@ -39,7 +39,7 @@ pipeline {
                 script {
                     currentBuild.displayName = params.version
                 }
-                dir("${env.WORKSPACE}/Terraform-with-Jenkins"){  //directory steps paramters to change the directory(if you have terraform in a dir in git)
+                //dir("${env.WORKSPACE}/Terraform-with-Jenkins"){  //directory steps paramters to change the directory(if you have terraform in a dir in git)
                   //https://www.jenkins.io/doc/pipeline/steps/workflow-basic-steps/#dir-change-current-directory
                   //In normal git configuration we do not require to change the directory
                   sh 'pwd'
@@ -48,7 +48,7 @@ pipeline {
                   sh 'terraform workspace new $TF_WORKSPACE || true'
                   sh "terraform plan -input=false -out tfplan --var-file=${params.TF_WORKSPACE}.tfvars"
                   sh 'terraform show -no-color tfplan > tfplan.txt'
-                }
+                //}
             }
         }
 
@@ -70,9 +70,9 @@ pipeline {
 
         stage('Apply') {
             steps {
-                dir("${env.WORKSPACE}/Terraform-with-Jenkins"){ //directory steps paramters to change the directory
+                
                 sh "terraform apply -input=false tfplan"
-                }
+               
             }
         }
     }
